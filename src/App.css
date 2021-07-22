@@ -3,11 +3,29 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 12vmin;
   pointer-events: none;
 }
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(191, 230, 169);
+  color: #50104A;
+  text-align: center;
+  padding: 20px;
+  font-size: 10px;
+  
+}
+.footer-Teammates {
+  display: inline;
+  flex-direction: row;
+  padding: 10px;
+  font-size: 10px;
+}
 
-@media (prefers-reduced-motion: no-preference) {
+@media screen {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
@@ -35,4 +53,23 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.header {
+  background-color: green;
+  min-height: 5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  padding: 10px;
+}
+
+#submit_exchange {
+  background-color:green;
+  width: 175px;
+  height: 100px;
+  color: white;
+  font-size: 28px;
+  border-radius: 12px;
 }
