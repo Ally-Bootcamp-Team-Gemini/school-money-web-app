@@ -7,7 +7,7 @@
   pointer-events: none;
 }
 
-@media {
+@media screen {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
