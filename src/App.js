@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <Header count={count} />
-      <Body />
+      <Body incrementCounter={incrementCounter}/>
       <Footer />
     </div>
   );
