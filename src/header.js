@@ -3,10 +3,10 @@ import logo from './exchange-logo2.png'
 
 export default function Header(props) {
     return (
-        <div class="header">
+        <div className="header">
             <img className="App-logo" src={logo} alt="logo" />
-            <h1>Money Exchange</h1>
-            <div style={{"margin-left":"auto"}}>Exchange Count: {props.count}</div>
+            <h1 style={{paddingLeft:"10px"}}>Money Exchange</h1>
+            <div style={{marginLeft:"auto"}}>Exchange Count: {props.count}</div>
         </div>
     )
 }

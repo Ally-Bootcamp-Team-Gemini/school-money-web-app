@@ -3,11 +3,11 @@
 }
 
 .App-logo {
-  height: 15vmin;
+  height: 12vmin;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+@media {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
@@ -43,7 +43,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: calc(10px + 2vmin);
   color: white;
   padding: 10px;
 }
