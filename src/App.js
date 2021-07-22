@@ -12,12 +12,18 @@ function App() {
   const incrementCounter = () => {
      setCounter(count+1);
   } 
+  const Teammates = ['Elena','Satchel','Zach','Manish','Callen','Will'];
+
+  const logo = [{
+    Company: '@Money Exchange',
+    Year: 2021,
+  }];
 
   return (
     <div className="App">
       <Header count={count} />
       <Body />
-      <Footer />
+      <Footer teammates = {Teammates} company = {logo}/>
     </div>
   );
 }

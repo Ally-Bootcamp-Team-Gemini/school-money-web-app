@@ -6,6 +6,24 @@
   height: 15vmin;
   pointer-events: none;
 }
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(191, 230, 169);
+  color: #50104A;
+  text-align: center;
+  padding: 20px;
+  font-size: 10px;
+  
+}
+.footer-Teammates {
+  display: inline;
+  flex-direction: row;
+  padding: 10px;
+  font-size: 10px;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
