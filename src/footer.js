@@ -10,7 +10,7 @@ export default function Footer(props){
 )
 )}
         
-        <p><a href ='https://exchangeratesapi.io/' >Exchange Rate API</a></p>
+        <p><a href ='https://exchangerate.host/#/' >Exchange Rate API</a></p>
 
         {props.company.map((logo) => (
 

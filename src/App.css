@@ -48,10 +48,10 @@
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate(360deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(0deg);
   }
 }
 
@@ -72,4 +72,27 @@
   color: white;
   font-size: 28px;
   border-radius: 12px;
+}
+
+.form {
+  padding: 50px;
+}
+
+.form > div {
+  padding: 20px;
+  font-size: 1.5rem;
+}
+
+.result {
+  font-size: 2rem;
+}
+
+.resultHulk {
+  font-size: 4rem;
+  color: green;
+  margin-top: 0.5rem;
+}
+
+#exchange_base {
+  
 }

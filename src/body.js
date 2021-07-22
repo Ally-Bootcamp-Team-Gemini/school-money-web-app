@@ -11,12 +11,12 @@ export default class Body extends Component {
             convertingAmount: '50',
             fromSymbol: 'USD',
             toSymbol: 'INR',
-            convertedAmount: null,
-            baseCurrency: '',
-            setBaseCurrency: '',
-            exchangeCurrency: '',
+            convertedAmount: 0,
+            baseCurrency: 'USD',
+            exchangeCurrency: 'USD',
             amountToExchange: 0, 
-            optionListHtml: []
+            optionListHtml: [],
+            submitted: false
         }
         this.createOptionList = this.createOptionList.bind(this); 
         this.onSubmit = this.onSubmit.bind(this);
@@ -30,19 +30,16 @@ export default class Body extends Component {
 
     // TODO: Bring USD to top of base list
     //This map function will iterate through the list of currency objects
-    createOptionList(){
-        /*Temporary mock data to populate drop downs*/
-        const mock_cur_list = {
-            "AED": "United Arab Emirates Dirham",
-            "AFN": "Afghan Afghani",
-            "ALL": "Albanian Lek",
-            "AMD": "Armenian Dram",
-        }
-        const objectList = Object.keys(mock_cur_list).map(function (key) {
-            return (
-                //create an option tag for each currency in list
-                <option key={key} value={key}>{key}: {mock_cur_list[key]}</option>
-            )
+    createOptionList(symbols){
+        const objectList = Object.keys(symbols).map(function (key) {
+            if (key==='USD') {
+                return (<option selected key={key} value={key}>{key}: {symbols[key]['description']}</option>);
+            } else {
+                return (
+                    //create an option tag for each currency in list
+                    <option key={key} value={key}>{key}: {symbols[key]['description']}</option>
+                )
+            }
         })
         console.log(objectList);
         this.setState({
@@ -52,32 +49,33 @@ export default class Body extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        this.props.incrementCounter();
+        this.getConversionAmount();
     }
 
     baseCurChanged(event) {
         this.setState({
-            baseCurrency:event.target.value
+            baseCurrency:event.target.value,
+            submitted: false
         });
     }
 
     exCurChanged(event) {
         this.setState({
-            exchangeCurrency:event.target.value
+            exchangeCurrency:event.target.value,
+            submitted: false
         });
     }
 
     baseValChanged(event) {
         this.setState({
-            amountToExchange:event.target.value
+            amountToExchange:event.target.value,
+            submitted: false
         });
     }
     
 
     componentWillMount(){
         this.getSupportedSymbols();
-        this.getConversionRate();
-        this.createOptionList();
     }
 
     getSupportedSymbols(){
@@ -87,10 +85,7 @@ export default class Body extends Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                this.setState({
-                    isLoaded: true,
-                    symbols: result.symbols
-                });
+                this.createOptionList(result.symbols);
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
@@ -104,18 +99,22 @@ export default class Body extends Component {
             )
     }
 
-    getConversionRate(){
-        const {fromSymbol, toSymbol, convertingAmount} = this.state;
-        const url = 'https://api.exchangerate.host/latest?' + '&base=' + fromSymbol + '&symbols=' + toSymbol + '&amount=' + convertingAmount;
+    getConversionAmount(){
+        const {baseCurrency, exchangeCurrency, amountToExchange} = this.state;
+        const url = 'https://api.exchangerate.host/latest?' + '&base=' + baseCurrency + '&symbols=' + exchangeCurrency + '&amount=' + amountToExchange;
         
         fetch(url)
             .then(res => res.json())
             .then(
                 (result) => {
-                this.setState({
-                    isLoaded: true,
-                    convertedAmount: result.rates
-                });
+                if (result.rates[this.state.exchangeCurrency] !== null) {
+                    this.props.incrementCounter();
+                    this.setState({
+                        isLoaded: true,
+                        convertedAmount: result.rates[this.state.exchangeCurrency].toFixed(2),
+                        submitted: true
+                    });
+                }
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
@@ -132,7 +131,7 @@ export default class Body extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.onSubmit}>
+                <form className="form" onSubmit={this.onSubmit}>
                     <div>
                         <label htmlFor="exchange_base">Base Currency:&nbsp;&nbsp;</label>
                         <select name="exchange_base" id="exchange_base" onChange={this.baseCurChanged}>
@@ -142,12 +141,12 @@ export default class Body extends Component {
 
                     <div>
                         <label htmlFor="base_value">Base Currency Amount:&nbsp;&nbsp;</label>
-                        <input name="base_value" id="base_value" onChange={this.exCurChanged}></input>
+                        <input name="base_value" type="number" step="0.01" id="base_value" onChange={this.baseValChanged}></input>
                     </div>
 
                     <div>
                         <label htmlFor="exchange_to">Exchange Currency:&nbsp;&nbsp;</label>
-                        <select name="exchange_to" id="exchange_to" onChange={this.baseValChanged}>
+                        <select name="exchange_to" id="exchange_to" onChange={this.exCurChanged}>
                             {this.state.optionListHtml}
                         </select>
                     </div>
@@ -156,6 +155,13 @@ export default class Body extends Component {
                         <input type="submit" value="EXCHANGE" name="submit_exchange" id="submit_exchange"></input>
                     </div>
                 </form>
+
+                {this.state.submitted &&
+                    (<div className="result">
+                        <p>{this.state.amountToExchange} {this.state.baseCurrency} is </p>
+                        <p className="resultHulk">{this.state.convertedAmount} {this.state.exchangeCurrency} </p>
+                    </div>)
+                }
             </div>
         )
     }
