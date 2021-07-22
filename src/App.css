@@ -7,7 +7,7 @@
   pointer-events: none;
 }
 .footer {
-  position: fixed;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -15,14 +15,20 @@
   color: #50104A;
   text-align: center;
   padding: 20px;
-  font-size: 10px;
-  
+  font-size: 20px;
+  margin-top: 30px;  
 }
+
 .footer-Teammates {
   display: inline;
   flex-direction: row;
   padding: 10px;
-  font-size: 10px;
+  font-size: 20px;
+}
+
+.footer > h6 {
+  margin-bottom: 0px;
+  margin-top: 5px;
 }
 
 @media screen {
@@ -40,6 +46,10 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.counter{
+  font-size: 25px;
 }
 
 .App-link {
