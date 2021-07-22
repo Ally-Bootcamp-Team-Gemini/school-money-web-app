@@ -9,7 +9,7 @@ export default function Body(props) {
         { "AMD": "Armenian Dram" },
     ]
 
-
+    // TODO: Bring USD to top of base list
     /*This map function will iterate through the list of currency objects*/
     const optionList = mock_cur_list.map(function (obj) {
         /*this var gets each key of mock_cur_list and holds it*/
@@ -22,12 +22,18 @@ export default function Body(props) {
 
     return (
         <div>
-            <select name="exchange_base" id="exchange_base">
-                {optionList}
-            </select>
-            <select name="exchange_to" id="exchange_to">
-                {optionList}
-            </select>
+            <div>
+                <label>Base Currency:&nbsp;&nbsp;</label>
+                <select name="exchange_base" id="exchange_base">
+                    {optionList}
+                </select>
+            </div>
+            <div>
+                <label>Exchange Currency:&nbsp;&nbsp;</label>
+                <select name="exchange_to" id="exchange_to">
+                    {optionList}
+                </select>
+            </div>
         </div>
     )
 }
