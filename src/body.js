@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 
 export default function Body(props) {
 
-    const [count, setCount] = useState(0);
     const [baseCurrency, setBaseCurrency] = useState("");
     const [exchangeCurrency, setExchangeCurrency] = useState("");
     const [amountToExchange, setAmountToExchange] = useState(0);
@@ -31,24 +30,36 @@ export default function Body(props) {
         props.incrementCounter();
     }
 
+    const baseCurChanged = function (event) {
+        setBaseCurrency(event.target.value)
+    }
+
+    const exCurChanged = function (event) {
+        setExchangeCurrency(event.target.value)
+    }
+
+    const baseValChanged = function (event) {
+        setAmountToExchange(event.target.value)
+    }
+
     return (
         <div>
             <form onSubmit={onSubmit}>
                 <div>
                     <label htmlFor="exchange_base">Base Currency:&nbsp;&nbsp;</label>
-                    <select name="exchange_base" id="exchange_base">
+                    <select name="exchange_base" id="exchange_base" onChange={baseCurChanged}>
                         {optionList}
                     </select>
                 </div>
 
                 <div>
                     <label htmlFor="base_value">Base Currency Amount:&nbsp;&nbsp;</label>
-                    <input name="base_value" id="base_value"></input>
+                    <input name="base_value" id="base_value" onChange={exCurChanged}></input>
                 </div>
 
                 <div>
                     <label htmlFor="exchange_to">Exchange Currency:&nbsp;&nbsp;</label>
-                    <select name="exchange_to" id="exchange_to">
+                    <select name="exchange_to" id="exchange_to" onChange={baseValChanged}>
                         {optionList}
                     </select>
                 </div>

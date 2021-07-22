@@ -12,7 +12,14 @@ function App() {
   const incrementCounter = () => {
     setCounter(count + 1);
   }
-  const Teammates = ['Elena', 'Satchel', 'Zach', 'Manish', 'Callen', 'Will'];
+  const Teammates = [
+    { Name: 'Elena', id: "1" },
+    { Name: 'Satchel', id: "2" },
+    { Name: 'Zach', id: "3" },
+    { Name: 'Manish', id: "4" },
+    { Name: 'Callen', id: "5" },
+    { Name: 'Will', id: "6" }
+  ];
 
   const logo = [{
     Company: '@Money Exchange',
