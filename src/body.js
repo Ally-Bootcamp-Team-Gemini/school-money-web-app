@@ -158,8 +158,10 @@ export default class Body extends Component {
 
                 {this.state.submitted &&
                     (<div className="result">
-                        <p>{this.state.amountToExchange} {this.state.baseCurrency} is </p>
-                        <p className="resultHulk">{this.state.convertedAmount} {this.state.exchangeCurrency} </p>
+                        <div className="result_container">
+                            <p>{this.state.amountToExchange} {this.state.baseCurrency} is </p>
+                            <p className="resultHulk">{this.state.convertedAmount} {this.state.exchangeCurrency} </p>
+                        </div>
                     </div>)
                 }
             </div>

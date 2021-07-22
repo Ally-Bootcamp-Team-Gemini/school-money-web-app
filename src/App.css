@@ -93,6 +93,17 @@
   margin-top: 0.5rem;
 }
 
-#exchange_base {
-  
+#exchange_base, #base_value, #exchange_to{
+  height: 2rem;
+  font-size: 1.5rem;
+}
+
+.result_container {
+  padding: 20px;
+  display: inline-block;
+  border: green;
+  border-width: 10px;
+  box-sizing: border-box;
+  border-style: double;
+  border-radius: 25px;
 }
