@@ -6,7 +6,7 @@ export default function Footer(props){
             <h1 className="footer-Teammates"> <a href ='https://github.com/zeamend/school-money-web-app' >Team Gemini:</a></h1>
         {props.teammates.map((footer) => (
 
-        <h1 className = 'footer-Teammates'>{footer}</h1>
+        <h1 key={footer.id} className = 'footer-Teammates'>{footer.Name}</h1>
 )
 )}
         
@@ -14,7 +14,7 @@ export default function Footer(props){
 
         {props.company.map((logo) => (
 
-            <h6>{logo.Company} {logo.Year}</h6>
+            <h6 key="copyright">{logo.Company} {logo.Year}</h6>
             )
             )}
 
