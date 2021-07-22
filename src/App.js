@@ -10,9 +10,9 @@ function App() {
   const [count, setCounter] = useState(0);
 
   const incrementCounter = () => {
-     setCounter(count+1);
-  } 
-  const Teammates = ['Elena','Satchel','Zach','Manish','Callen','Will'];
+    setCounter(count + 1);
+  }
+  const Teammates = ['Elena', 'Satchel', 'Zach', 'Manish', 'Callen', 'Will'];
 
   const logo = [{
     Company: '@Money Exchange',
@@ -22,8 +22,8 @@ function App() {
   return (
     <div className="App">
       <Header count={count} />
-      <Body />
-      <Footer teammates = {Teammates} company = {logo}/>
+      <Body incrementCounter={incrementCounter} />
+      <Footer teammates={Teammates} company={logo} />
     </div>
   );
 }
