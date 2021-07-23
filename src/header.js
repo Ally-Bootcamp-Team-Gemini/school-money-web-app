@@ -6,11 +6,11 @@ export default class Header extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            temp: 0,
+            temp: false,
             description: "",
             city: "",
             country: "",
-            apiBaseEndpoint: "http://api.weatherapi.com/v1/",
+            apiBaseEndpoint: "https://api.weatherapi.com/v1/",
             apiKey: "3396a43da2ca4b448d1145317212307"
         })
 
@@ -56,13 +56,17 @@ export default class Header extends Component {
             <div className="header">
                 <img className="App-logo" src={logo} alt="logo" />
                 <h1 style={{ paddingLeft: "10px" }}>Money Exchange</h1>
-                <div className="weatherReport">
-                    <h2>{this.state.temp}&deg; F</h2>
-                    <h3>{this.state.description}</h3>
-                </div>
-                <div className="weatherReport">
-                    <h4>{this.state.city}, {this.state.country}</h4>
-                </div>
+                {this.state.temp &&
+                    <div className="weatherContainer">
+                        <div className="weatherReport">
+                            <h2>{this.state.temp}&deg; F</h2>
+                            <h3>{this.state.description}</h3>
+                        </div>
+                        <div className="weatherReport">
+                            <h4>{this.state.city}, {this.state.country}</h4>
+                        </div>
+                    </div>
+                }
                 <div className="counter" style={{ marginLeft: "auto" }}>Exchange Count: {this.props.count}</div>
             </div>
         )

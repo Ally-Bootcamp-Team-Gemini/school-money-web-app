@@ -121,6 +121,10 @@
   border-radius: 25px;
 }
 
+.weatherContainer {
+  display: contents;
+}
+
 .weatherReport {
   margin-left: 2rem;
   text-align: center;
