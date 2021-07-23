@@ -120,3 +120,8 @@
   border-style: double;
   border-radius: 25px;
 }
+
+.weatherReport {
+  margin-left: 2rem;
+  text-align: center;
+}
