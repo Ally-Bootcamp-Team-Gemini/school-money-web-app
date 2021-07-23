@@ -5,6 +5,11 @@
   height: 1.5rem;
   width: 1.5rem;
 }
+
+.flag{
+  height: 3rem;
+  padding: 1rem;
+}
 .App-logo {
   height: 12vmin;
   pointer-events: none;
