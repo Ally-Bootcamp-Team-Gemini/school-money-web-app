@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { findAllInRenderedTree } from 'react-dom/cjs/react-dom-test-utils.production.min';
 
 export default class Body extends Component {
 
@@ -18,6 +19,7 @@ export default class Body extends Component {
             amountToExchange: 0,
             optionListHtml: [],
             submitted: false,
+            countries: [],
         }
         this.createOptionList = this.createOptionList.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -48,6 +50,7 @@ export default class Body extends Component {
     onSubmit(event) {
         event.preventDefault();
         this.getConversionAmount();
+        this.getCountryInfoByCurrency();
     }
 
     baseCurChanged(event) {
@@ -126,6 +129,17 @@ export default class Body extends Component {
             )
     }
 
+    getCountryInfoByCurrency() {
+        const url = 'https://restcountries.eu/rest/v2/currency/' + this.state.exchangeCurrency;
+
+        axios.get(url).then(res => {
+            this.setState({countries: res.data});
+        }).catch(() => {
+            this.setState({countries:[]});
+        });
+
+    }
+
     render() {
         return (
             <div>
@@ -158,6 +172,11 @@ export default class Body extends Component {
                         <div className="result_container">
                             <p>{this.state.amountToExchange} {this.state.baseCurrency} is </p>
                             <p className="resultHulk">{this.state.convertedAmount} {this.state.exchangeCurrency} </p>
+                        </div>
+                        <div>
+                            {this.state.countries.map(function (countryObj) {
+                                return <img alt={countryObj.name} key={countryObj.name} className="flag" src={countryObj.flag} />
+                            })}
                         </div>
                     </div>)
                 }
