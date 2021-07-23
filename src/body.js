@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 export default class Body extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             error: null,
             isLoaded: false,
             symbols: [],
@@ -14,25 +15,22 @@ export default class Body extends Component {
             convertedAmount: 0,
             baseCurrency: 'USD',
             exchangeCurrency: 'USD',
-            amountToExchange: 0, 
+            amountToExchange: 0,
             optionListHtml: [],
-            submitted: false
+            submitted: false,
         }
-        this.createOptionList = this.createOptionList.bind(this); 
+        this.createOptionList = this.createOptionList.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.baseCurChanged = this.baseCurChanged.bind(this);
         this.exCurChanged = this.exCurChanged.bind(this);
         this.baseValChanged = this.baseValChanged.bind(this);
-
-        
-        
     }
 
     // TODO: Bring USD to top of base list
     //This map function will iterate through the list of currency objects
-    createOptionList(symbols){
+    createOptionList(symbols) {
         const objectList = Object.keys(symbols).map(function (key) {
-            if (key==='USD') {
+            if (key === 'USD') {
                 return (<option selected key={key} value={key}>{key}: {symbols[key]['description']}</option>);
             } else {
                 return (
@@ -54,76 +52,76 @@ export default class Body extends Component {
 
     baseCurChanged(event) {
         this.setState({
-            baseCurrency:event.target.value,
+            baseCurrency: event.target.value,
             submitted: false
         });
     }
 
     exCurChanged(event) {
         this.setState({
-            exchangeCurrency:event.target.value,
+            exchangeCurrency: event.target.value,
             submitted: false
         });
     }
 
     baseValChanged(event) {
         this.setState({
-            amountToExchange:event.target.value,
+            amountToExchange: event.target.value,
             submitted: false
         });
     }
-    
 
-    componentWillMount(){
+
+    componentWillMount() {
         this.getSupportedSymbols();
     }
 
-    getSupportedSymbols(){
+    getSupportedSymbols() {
         const url = 'https://api.exchangerate.host/symbols';
 
         fetch(url)
             .then(res => res.json())
             .then(
                 (result) => {
-                this.createOptionList(result.symbols);
+                    this.createOptionList(result.symbols);
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
                 // exceptions from actual bugs in components.
                 (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
                 }
             )
     }
 
-    getConversionAmount(){
-        const {baseCurrency, exchangeCurrency, amountToExchange} = this.state;
+    getConversionAmount() {
+        const { baseCurrency, exchangeCurrency, amountToExchange } = this.state;
         const url = 'https://api.exchangerate.host/latest?' + '&base=' + baseCurrency + '&symbols=' + exchangeCurrency + '&amount=' + amountToExchange;
-        
+
         fetch(url)
             .then(res => res.json())
             .then(
                 (result) => {
-                if (result.rates[this.state.exchangeCurrency] !== null) {
-                    this.props.incrementCounter();
-                    this.setState({
-                        isLoaded: true,
-                        convertedAmount: result.rates[this.state.exchangeCurrency].toFixed(2),
-                        submitted: true
-                    });
-                }
+                    if (result.rates[this.state.exchangeCurrency] !== null) {
+                        this.props.incrementCounter();
+                        this.setState({
+                            isLoaded: true,
+                            convertedAmount: result.rates[this.state.exchangeCurrency].toFixed(2),
+                            submitted: true
+                        });
+                    }
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
                 // exceptions from actual bugs in components.
                 (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
                 }
             )
     }
@@ -138,7 +136,6 @@ export default class Body extends Component {
                             {this.state.optionListHtml}
                         </select>
                     </div>
-
                     <div>
                         <label htmlFor="base_value">Base Currency Amount:&nbsp;&nbsp;</label>
                         <input name="base_value" type="number" step="0.01" id="base_value" onChange={this.baseValChanged}></input>
@@ -164,8 +161,9 @@ export default class Body extends Component {
                         </div>
                     </div>)
                 }
+
             </div>
         )
     }
-        
+
 }

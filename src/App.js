@@ -12,14 +12,18 @@ function App() {
   const incrementCounter = () => {
     setCounter(count + 1);
   }
+
+  const randomSeed = Math.floor(Math.random() * 100000)
   const Teammates = [
-    { Name: 'Elena', id: "1" },
-    { Name: 'Satchel', id: "2" },
-    { Name: 'Zach', id: "3" },
-    { Name: 'Manish', id: "4" },
-    { Name: 'Callen', id: "5" },
-    { Name: 'Will', id: "6" }
+    { Name: 'Elena', id: "1", url: "https://avatars.dicebear.com/api/female/elena"+ randomSeed +".svg" },
+    { Name: 'Satchel', id: "2", url: "https://avatars.dicebear.com/api/male/satchel"+ randomSeed +".svg"},
+    { Name: 'Zach', id: "3", url: "https://avatars.dicebear.com/api/male/Zachary"+ randomSeed +".svg"},
+    { Name: 'Manish', id: "4", url: "https://avatars.dicebear.com/api/male/manish"+ randomSeed +".svg" },
+    { Name: 'Callen', id: "5", url: "https://avatars.dicebear.com/api/male/Callen"+ randomSeed +".svg" },
+    { Name: 'Will', id: "6", url: "https://avatars.dicebear.com/api/male/Will"+ randomSeed +".svg" }
   ];
+
+<img class="person" src="https://avatars.dicebear.com/api/male/example.svg" />
 
   const logo = [{
     Company: '@Money Exchange',
